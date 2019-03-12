@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style type="text/css">
+        .box{
+            width:300px;
+            height: 300px;
+        }
+
+        .normal{
+            background: yellowgreen;
+        }
+
+        .active{
+            background: red;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- react的操作必须声明一个根元素 -->
+    <div id="root"></div>
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script>
+
+<script type="text/babel">
+    class App extends React.Component{
+        constructor(...args){
+            super(...args)
+        }
+
+        render(){
+     
+            return ( 
+
+                <div>
+                    <div className={["box","normal"].join(" ")}>
+                            <p>11111111</p>
+                            <p>11111111</p>
+                            <p>11111111</p>
+                    </div>
+                    <br />
+                    <button>点击后改变</button>
+                </div>
+            )
+        }
+    }
+
+
+    ReactDOM.render(<App />,document.getElementById("root"))
+
+</script>
+
+
+</html>

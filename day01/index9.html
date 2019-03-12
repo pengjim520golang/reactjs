@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>reactDemo</title>
+    <style type="text/css">
+        *{
+            margin:0;
+            padding:0;
+            list-style: none;
+        }
+        .slider{
+            width: 400px;
+            height: 300px;
+            margin: 10px auto 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .slider ul{
+            width: 1600px;
+            height: 300px;
+            position: absolute;
+            left:0;
+            top: 0;
+            transition: 0.7s all ease;
+        }
+        .slider ul li{
+            width: 400px;
+            height: 300px;
+            position: relative;
+            float: left;
+        }
+        .slider ol{
+            width: 104px;
+            height: 26px;
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+        }
+        .slider ol li{
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.6);
+            margin: 5px;
+            float: left;
+        }
+        .slider ol li{
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.6);
+            margin: 5px;
+            float: left;
+        }
+
+        .slider ol li.active{
+            background: rgba(255,255,255,1);
+        }
+    </style>
+</head>
+<body>
+    <div id="elementRoot"></div>
+</body>
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script>
+<script type="text/babel">
+    window.onload = function(){
+       class Banner extends React.Component{
+           constructor(...args){
+               super(...args)
+               this.state = {now:0}
+
+           }
+           switchMove(index){
+               this.setState({
+                   now:index
+               })
+           }
+
+            componentDidMount() {
+                let dt = setInterval(() => {
+                    
+                        if(this.state.now===this.props.imgCount){
+                            //this.setState({now:0})
+                            clearInterval(dt)
+                        }else{
+                            this.setState({now:this.state.now+1})
+                        }
+                                    
+                }, 1000);
+            }
+
+           render(){
+               let liImg = this.props.src.map((item,index)=>{
+                   return <li key={index}><img src={item} /></li>
+               })
+
+               let liCircle = this.props.src.map((item,index)=>{
+                   return <li key={index} className={index===this.state.now?'active':''} onMouseOver={this.switchMove.bind(this,index)}></li>
+               })
+               
+
+
+               return (
+                   <div className="slider">
+                        <ul style={{left:this.state.now * -400}}>
+                            {liImg}
+                        </ul>
+
+                        <ol>
+                            {liCircle}
+                        </ol>
+                   </div>
+               )
+           }
+       }
+       let imgs = [
+                "./images/1.jpg",
+                "./images/2.jpg",
+                "./images/3.jpg",
+                "./images/4.jpg"
+           ]
+       let imgsCount = imgs.length-1
+       ReactDOM.render(
+
+           <Banner src={imgs} imgCount={imgsCount}/>,
+           document.getElementById("elementRoot")
+       )
+    }
+</script>
+</html>
