@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+    
+        .slider{
+            width: 400px;
+            height: 300px;
+            position: relative;
+            margin: 20px auto 0;
+            overflow: hidden;
+        }
+
+        .slider ul{
+            position: absolute;
+            width: 1600px;
+            height: 300px;
+            left:0;
+            top:0;
+            transition:0.7s all ease;
+        }
+
+        .slider ul li{
+            float: left;
+            width: 400px;
+            height: 300px;
+            position: relative;
+        }
+
+        .slider ol{
+            position: absolute;
+            width: 104px;
+            height: 26px;
+            left:8px;
+            bottom: 10px;
+        }
+
+        .slider ol li{
+            width: 16px;
+            height: 16px;
+            background:rgba(255, 255,255, 0.6);
+            float: left;
+            position: relative;
+            margin: 5px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .slider ol li.active{
+            background:rgba(255, 255,255, 1);
+        }
+
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script>
+
+<script type="text/babel">
+    class Slider extends React.Component{
+        constructor(...args){
+            super(...args)
+            this.state = {
+                now:0 //表示当前的图片是索引为0
+            }
+        }
+
+        swithMoving(index){
+            this.setState({
+                now:index 
+            })
+        }
+
+        componentDidMount(){
+            //console.log( this.state.now )
+
+            setInterval( ()=>{
+                if( this.state.now === this.props.imagesCount ){
+                    this.setState({
+                        now:0
+                    })                  
+                }else{
+                    this.setState({
+                        now:this.state.now+1
+                    })                     
+                }
+            },4000)
+        }
+
+
+
+        render(){
+
+            let imgsLi = this.props.images.map((item,index)=>{
+                return <li key={index}><img src={item} /></li>
+            })
+
+            let circleLi = this.props.images.map((item,index)=>{
+                return <li key={index} className={index===this.state.now ? "active" : ""} onClick={this.swithMoving.bind(this,index)}></li>
+            })
+            //console.log("状态改为：",this.state.now)
+
+            return (
+
+                
+                <div className="slider">
+
+                    <ul style={{left:this.state.now*-400}}>
+                        {imgsLi} 
+                    </ul>
+
+
+                    <ol>
+                        {circleLi}
+                    </ol>
+
+                </div>
+            )
+        }
+    }
+
+    let imgs = [
+        "./images/1.jpg",
+        "./images/2.jpg",
+        "./images/3.jpg",
+        "./images/4.jpg"
+    ]
+
+    let imgsCount = imgs.length-1 //图片的总数
+    ReactDOM.render(<Slider images={imgs} imagesCount={imgsCount} />,document.getElementById("root"))
+
+</script>
+
+
+</html>

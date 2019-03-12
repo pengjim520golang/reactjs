@@ -83,8 +83,8 @@
                 let dt = setInterval(() => {
                     
                         if(this.state.now===this.props.imgCount){
-                            //this.setState({now:0})
-                            clearInterval(dt)
+                            this.setState({now:0})
+                            //clearInterval(dt)
                         }else{
                             this.setState({now:this.state.now+1})
                         }
