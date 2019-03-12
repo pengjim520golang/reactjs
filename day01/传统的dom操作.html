@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+
+            <div class="box">
+
+            </div>
+    </div>
+</body>
+
+<script>
+
+    window.onload = function(){
+        var root = document.getElementById("root")
+        var div = document.createElement("div")
+        var ul = document.createElement("ul")
+        var li = document.createElement("li")
+        var textNode = document.createTextNode("content-1")
+        li.appendChild(textNode) //<li>content-1</li>
+        ul.appendChild(li)
+        div.appendChild(ul)
+        div.className = "box"
+        root.appendChild(div)
+
+    }
+
+</script>
+</html>
