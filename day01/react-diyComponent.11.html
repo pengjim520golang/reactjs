@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- react的操作必须声明一个根元素 -->
+    <div id="root">
+
+
+
+    </div>
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script>
+
+
+<script type="text/babel">
+
+
+
+    //定义个组件叫MyComponent
+    class MyComponent extends React.Component{
+        //完成继承父类的构造函数重写
+        constructor(...args){
+            super(...args)
+            this.blockchain = "btc"
+            
+        }
+        fn(money,pub){
+           
+            alert(this.blockchain+"="+money+",发行行:"+pub)
+        }
+        //任何一个组件必须声明一个render方法
+        //如果在组件的render方法中只存在一个标签那么就无需有顶层便签，如果多于一个标签则需要放置于一个顶层标签中
+        render(){
+            return (
+                    <div>
+                        <button onClick={this.fn.bind(this,10,"okcoin")}>点击我把</button>
+                    </div>
+              
+            )
+        }
+
+    }
+
+    let root = document.getElementById("root")
+    //react是强组件化的语言，任何一个标签在jsx当中被声明实际都会进行React.Component的new操作
+    //react的组件必须是一个闭合的标签
+    //ReactDOM.render(<MyComponent></MyComponent>,root)
+    ReactDOM.render(<MyComponent name="lisi" age="44" gender="female" />,root)
+</script>
+
+</html>

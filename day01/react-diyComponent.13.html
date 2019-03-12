@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- react的操作必须声明一个根元素 -->
+    <div id="root">
+
+
+
+    </div>
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script>
+
+
+<script type="text/babel">
+
+
+
+    
+    class MyComponent extends React.Component{
+
+        constructor(...args){
+            super(...args)
+          
+            
+        }
+        render(){
+            return (
+                    <div>
+
+                        <span>{this.props.initNumber+this.props.additionNumber}</span>
+                        
+                    </div>
+              
+            )
+        }
+
+    }
+
+    let root = document.getElementById("root")
+    ReactDOM.render(<MyComponent initNumber={33} additionNumber={44} />,root)
+</script>
+
+</html>

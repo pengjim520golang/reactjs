@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- react的操作必须声明一个根元素 -->
+    <div id="root">
+
+
+
+    </div>
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script>
+
+
+<script type="text/babel">
+
+    class MyComponent2 extends React.Component{
+        constructor(...args){
+            super(...args)
+        }
+
+        render(){
+            console.log("被调用了2222")
+            return "xxx"
+        }
+    }
+
+    
+    class MyComponent extends React.Component{
+
+        constructor(...args){
+            super(...args)
+            
+            //在react当中状态是可以发生改变的，并且状态的初始化一般发生在构造函数当中
+            //状态在react当中必须声明为this.state,并且状态属性必须执行一个对象
+            this.state = {
+                num:this.props.initNumber  //初始化了一个状态叫num，使用属性进行初始化
+            }
+        }
+
+        fn(){
+            
+            // this.state.num += 1 这样的修改不是react修改状态发方法
+            // 在react中修改状态必须使用this.setState方法来修改
+            // 修改状态就会导致render被重新调用，但不会影响其他组件中render方法
+            this.setState({
+                num:this.state.num+1
+            })
+        }
+
+        render(){
+            console.log("被调用了")
+            return (
+                    <div>
+                        <h1>{this.state.num}</h1>
+                        <button onClick={this.fn.bind(this)}>点击我加1</button>
+                    </div>
+              
+            )
+        }
+
+    }
+
+    let root = document.getElementById("root")
+    ReactDOM.render(<MyComponent initNumber={100}  />,root)
+</script>
+
+</html>

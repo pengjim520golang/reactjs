@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <!-- react的操作必须声明一个根元素 -->
+    <div id="root">
+
+
+
+    </div>
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script>
+
+
+<script type="text/babel">
+
+
+
+    
+    class MyComponent extends React.Component{
+
+        constructor(...args){
+            super(...args)
+          
+            
+        }
+
+        fn(){
+            //报错，因为在react中属性是永远只读,只有状态可以发生修改
+            this.props.initNumber += 1
+        }
+
+        render(){
+            return (
+                    <div>
+                        <h1>{this.props.initNumber}</h1>
+                        <button onClick={this.fn.bind(this)}>点击我加1</button>
+                    </div>
+              
+            )
+        }
+
+    }
+
+    let root = document.getElementById("root")
+    ReactDOM.render(<MyComponent initNumber={1}  />,root)
+</script>
+
+</html>
