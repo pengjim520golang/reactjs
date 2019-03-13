@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script>
+
+<script type="text/babel">
+
+    class App extends React.Component{
+        constructor(...args){
+            super(...args)
+            //定义数据容器
+            this.state = {
+                data:["吃饭","睡觉","打豆豆"]
+            }
+        }
+
+        //添加数据到容器中
+        insertData(value){
+            let data = this.state.data;
+            data.unshift(value)
+            //修改原有的状态
+            this.setState({data:data})
+        }
+
+        render(){
+            //获取data状态
+            let items = this.state.data;
+            let length = items.length 
+            console.log(items)
+            return (
+                <div>
+                    <h3>Simple ToDO List</h3>
+                    <ToDoAdd refComponent={this} length={length} />
+                    <ToDoList items={items} />
+                </div>
+            )
+        }
+    }
+
+
+    //实现ToDoAdd组件
+    class ToDoAdd extends React.Component{
+        constructor(...args){
+            super(...args)
+        
+        }
+        addValue(){
+            //获取用户的输入
+            let val = this.refs["txtValue"].value
+            //调用App中的insertData方法
+            this.props.refComponent.insertData(val)
+        }
+
+        render(){
+            return (
+                <div>
+                    <input type="text" ref="txtValue"  /><button onClick={this.addValue.bind(this)}>Add#{this.props.length}</button>
+                </div>
+            )
+        }
+    }
+
+    //实现ToDoList组件
+    class ToDoList extends React.Component{
+        constructor(...args){
+            super(...args)
+            
+        }
+        render(){
+            let items = this.props.items.map( (item,index)=>{
+                return <li key={index}>{item}</li>
+            } )
+
+            return (
+                <ul>
+                    
+                        {items}
+                </ul>
+            )
+        }
+    }
+
+
+    ReactDOM.render(<App />,document.getElementById("root") )
+</script>
+</html>

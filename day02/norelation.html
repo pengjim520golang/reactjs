@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script>
+
+<script type="text/babel">
+
+    let globalFun = null ; //全局变量
+
+    class CmpTw extends React.Component{
+        constructor(...args){
+            super(...args)
+            this.state = {message:"false"}
+
+            //把全局gobal在台湾组件中定义一个函数
+            window.globalFun = ()=>{
+                this.setState({
+                    message:"true"
+                })
+            }
+        }
+
+
+
+        render(){
+            return (
+                <div>来自台湾某公司的组件{this.state.message}</div>
+            )
+        }
+    }
+
+
+    class CmpMySelf extends React.Component{
+        constructor(...args){
+            super(...args)
+            this.state = {x:0,y:0}
+        }
+        updateTw(){
+            window.globalFun();
+        }
+
+        render(){
+            return (
+                <div>来自我公司本身的组件:<button onClick={this.updateTw.bind(this)}>点击修改台湾的组件为true</button></div>
+            )
+        }
+    }
+   
+    ReactDOM.render(<div>
+                        <CmpTw />
+                        <CmpMySelf />
+                    </div>,document.getElementById("root") )
+</script>
+</html>
