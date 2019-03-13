@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script>
+
+<script type="text/babel">
+    class News extends React.Component{
+        constructor(...args){
+            super(...args)
+        }
+
+        render(){
+            return (
+                <p>id:{this.props.id},title:{this.props.title},time:{this.props.time}</p>
+            )
+        }
+    }
+
+
+    ReactDOM.render(<div>
+                            <News id={1} title="this is first one" time="2019-01-01" />
+                            <News id={2} title="this is sec one" time="2019-01-02" />
+                            <News id={3} title="this is third one" time="2019-01-03" />
+                            <News id={4} title="this is fourth one" time="2019-01-04" />
+                    </div>
+                    ,document.getElementById("root") )
+</script>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script>
+
+<script type="text/babel">
+
+    class NewsList extends React.Component{
+        constructor(...args){
+            super(...args)
+        }
+
+        render(){
+            let news = this.props.data.map((item,index)=>{
+                return <News key={index} title={item.title} time={item.time} />
+            })
+
+            return (
+                <div>
+                    {news}
+                </div>
+            )
+        }
+
+    }
+
+    class News extends React.Component{
+        constructor(...args){
+            super(...args)
+        }
+
+        render(){
+            return (
+                <p>id:{this.props.id},title:{this.props.title},time:{this.props.time}</p>
+            )
+        }
+    }
+
+
+    ReactDOM.render(<NewsList  data={[
+        {id:100,title:"this is news-1",time:"2019-03-01"},
+        {id:200,title:"this is news-2",time:"2019-03-02"},
+        {id:300,title:"this is news-3",time:"2019-03-03"},
+        {id:400,title:"this is news-4",time:"2019-03-04"}
+    ]} />,document.getElementById("root") )
+</script>
+</html>
