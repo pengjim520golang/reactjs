@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script>
+
+<script type="text/babel">
+    class Test extends React.Component{
+        constructor(...args){
+            super(...args)
+            this.state = {x:0,y:0}
+        }
+
+        sum(){
+            let x = parseInt( this.refs["numX"].value )
+            let y = parseInt( this.refs["numY"].value )
+            this.setState({x,y})
+        }
+
+        render(){
+            return (
+               <div>
+                    <input type="text" ref="numX" />+<input type="text" ref="numY" />
+                    <button onClick={this.sum.bind(this)}>=</button><span style={{fontSize:"22px",fontWeight:"blod"}}>{this.state.x+this.state.y}</span>
+               </div>
+            )
+        }
+    }
+
+
+    ReactDOM.render(<div>
+                        <Test />
+                        <Test />
+                        <Test />
+                        <Test />
+                        <Test />
+                        <Test />
+                    </div>
+    ,document.getElementById("root") )
+</script>
+</html>

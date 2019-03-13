@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+
+<script src="./react.min.js"></script>
+<script src="./react-dom.min.js"></script>
+<script src="./babel.min.js"></script>
+
+<script type="text/babel">
+
+    class Parent extends React.Component{
+        constructor(...args){
+            super(...args)
+            this.state = {x:0,y:0}
+        }
+
+        getElement3(){
+            this.refs["el300"].getId()
+        }
+
+        render(){
+            return (
+               <div>
+                    <Child id="100" />
+                    <Child id="200" />
+                    <Child id="300" ref="el300" />
+                    <Child id="400" />
+                    <Child id="500" />
+                    <hr />
+                    <button onClick={this.getElement3.bind(this)}>我要获取第3个子元素的id是什么？</button>
+               </div>
+            )
+        }
+    }
+
+
+    class Child extends React.Component{
+        constructor(...args){
+            super(...args)
+            this.state = {x:0,y:0}
+        }
+
+        getId(){
+            alert("id="+this.props.id)
+        }
+
+        render(){
+            return (
+                <p>子元素</p>
+            )
+        }
+    }
+
+
+    ReactDOM.render(<Parent />,document.getElementById("root") )
+</script>
+</html>

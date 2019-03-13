@@ -19,15 +19,22 @@
     class NewsList extends React.Component{
         constructor(...args){
             super(...args)
+            //把属性的值放到状态中
+            this.state = {
+                data:this.props.data 
+            }
         }
 
         deleteNewsById(id){
-            alert("删除"+id)
+           this.setState({
+               data:this.state.data.filter( item=>item.id !== id )
+           })
         }
 
         render(){
-            let news = this.props.data.map((item,index)=>{
-                return <News key={index} title={item.title} time={item.time} refComponent={this} />
+            //通过状态进行新闻数据的遍历，因为状态才可以修改
+            let news = this.state.data.map((item,index)=>{
+                return <News key={index} title={item.title} time={item.time} id={item.id} refComponent={this} />
             })
 
             return (
@@ -45,7 +52,7 @@
         }
 
         delNews(){
-            this.props.refComponent.deleteNewsById(11)
+            this.props.refComponent.deleteNewsById(this.props.id)
         }
 
         render(){
