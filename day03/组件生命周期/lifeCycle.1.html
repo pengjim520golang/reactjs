@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script src="react.min.js"></script>
+<script src="react-dom.min.js"></script>
+<script src="babel.min.js"></script>
+
+<script type="text/babel">
+    class LifeCycle extends React.Component{
+        constructor(...args){
+            super(...args)
+            console.log("Constructor() 组件被创建的时候")
+            this.state = {
+                now:0
+            }
+        }
+
+        componentDidMount(){
+            console.log("componentDidMount() 组件完成渲染")
+            this.dt = setInterval(()=>{
+                console.log("执行setInterval")
+            },1000)
+
+            setTimeout(() => {
+                ReactDOM.unmountComponentAtNode(document.getElementById("root"))
+            }, 3000);
+        }
+
+        componentWillUnmount(){
+            console.log("componentWillUnMount() 组件被删除时")
+            clearInterval(this.dt)
+        }
+
+
+
+        render(){
+            console.log("render() 组件被渲染")
+            return "xxxx"
+        }
+    }
+
+
+    ReactDOM.render(<LifeCycle />,document.getElementById("root"))
+</script>
+</html>

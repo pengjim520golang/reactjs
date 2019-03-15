@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script src="react.min.js"></script>
+<script src="react-dom.min.js"></script>
+<script src="babel.min.js"></script>
+
+<script type="text/babel">
+    class LifeCycle extends React.Component{
+        constructor(...args){
+            super(...args)
+            console.log("Constructor() 组件被创建的时候")
+            this.state = {
+                now:0
+            }
+        }
+        componentWillMount(){
+            console.log("componentWillMount() 组件即将被渲染时")
+        }
+
+        componentDidMount(){
+            console.log("componentWillMount() 组件即将完成渲染时")
+            setTimeout(()=>{
+                this.setState({now:1})
+            },3000)
+
+            setTimeout(()=>{
+                ReactDOM.unmountComponentAtNode(document.getElementById("root"))
+            },5000)
+        }
+
+        componentWillUnmount(){
+            console.log("componentWillUnMount() 组件被删除时触发")
+        }
+
+
+        componentWillUpdate(){
+            console.log("componentWillUpdate() 组件状态即将被修改时触发")
+        }
+
+
+        componentDidUpdate(){
+            console.log("componentDidUpdate() 组件状态完成修改时触发")
+        }
+
+        render(){
+            console.log("render() 组件被渲染")
+            return "xxxx"
+        }
+    }
+
+
+    ReactDOM.render(<LifeCycle />,document.getElementById("root"))
+</script>
+</html>
